@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./js/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>下班倒计时</title>
+    <script src="./js/hotCss.js"></script>
+    <script src="./js/time.js"></script>
+</head>
+
+<body>
+    <div class="custom-header">
+        <div class="left-menu">
+            <button class="menu-item" onclick="toggleWindowTop()" id="topBtn"><i>√</i>窗口置顶</button>
+            <button class="menu-item" onclick="toggleMiniVersion()" id="miniBtn"><i>√</i>迷你版</button>
+            <span>颜色选择<input type="color" id="color-picker"></span>
+        </div>
+        <div class="window-controls">
+            <button class="window-button" onclick="minimizeWindow()">_</button>
+            <button class="window-button" onclick="closeWindow()">×</button>
+        </div>
+    </div>
+    <div class="part">
+        <div class="part-content"> 
+            <div class="mini-hide">
+                <div class="img"><img src="./images/shechu.gif" alt=""></div>
+                <div class="time-tip"><font class="char1" color="#5D5327">起</font><font class="char2" color="#376747">床</font><font class="char3" color="#2BC15C">坐</font><font class="char4" color="#638AD9">牢</font><font class="char" color="#BF1D7E">啦</font></div>
+                <div class="input-container">
+                    <label for="lunch-time">午休开始时间：</label>
+                    <input type="time" id="lunch-time">
+                    <label for="lunch-end-time">午休结束时间：</label>
+                    <input type="time" id="lunch-end-time">
+                </div>
+                <div class="input-container">
+                    <label for="work-time">下班时间：</label>
+                    <input type="time" id="work-time">
+                </div>
+                <div class="countdown-container" id="lunch-countdown">
+                    <div class="progress-bar" id="lunch-progress"></div>
+                </div>
+                <div class="time-display" id="lunch-left">距离午休剩余时间：--:--:--</div>
+                <div class="time-display" id="lunch-right">共：--分--秒</div>
+                <div class="countdown-container" id="work-countdown">
+                    <div class="progress-bar" id="work-progress"></div>
+                </div>
+            </div>
+            <div class="time-display" id="work-left">距离下班剩余时间：--:--:--</div>
+            <div class="time-display" id="work-right">共：--分--秒</div>
+        </div>
+    </div>
+</body>
+
+</html>

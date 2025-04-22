@@ -1,0 +1,53 @@
+{
+    "name": "work-countdown",
+    "version": "1.0.0",
+    "description": "这是一个下班倒计时助手，可帮助用户实时了解距离下班的时间。",
+    "main": "main.js",
+    "scripts": {
+        "start": "nodemon --watch . --ext js,html,css --exec electron .",
+        "dist": "electron-builder",
+        "clean": "rm -rf dist", 
+        "lint": "eslint src" 
+    },
+    "keywords": ["下班倒计时", "助手", "Electron应用"],
+    "author": "Your Name <your.email@example.com>",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^22.3.17",
+        "electron-builder": "^23.6.0",
+        "electron-reload": "^2.0.0-alpha.1",
+        "nodemon": "^2.0.20"
+    },
+    "build": {
+        "productName": "下班倒计时助手",
+        "appId": "com.example.work-countdown",
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "icon": "./build/icon.ico"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "installerIcon": "./build/icon.ico",
+            "uninstallerIcon": "./build/icon.ico",
+            "createDesktopShortcut": true,
+            "createStartMenuShortcut": true
+        },
+        "mac": {
+            "target": [
+                "dmg"
+            ]
+        },
+        "linux": {
+            "target": [
+                "AppImage"
+            ]
+        }
+    },
+    "dependencies": {
+        "chokidar": "^4.0.3",
+        "jquery": "^3.7.1"
+    }
+}

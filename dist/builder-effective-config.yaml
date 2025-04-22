@@ -1,0 +1,24 @@
+directories:
+  output: dist
+  buildResources: build
+productName: 下班倒计时助手
+appId: com.example.lunch-and-work-countdown
+win:
+  target:
+    - nsis
+  icon: ./build/icon.ico
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: ./build/icon.ico
+  uninstallerIcon: ./build/icon.ico
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+mac:
+  target:
+    - dmg
+linux:
+  target:
+    - AppImage
+files: []
+electronVersion: 22.3.27
