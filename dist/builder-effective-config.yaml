@@ -2,7 +2,15 @@ directories:
   output: dist
   buildResources: build
 productName: 下班倒计时助手
-appId: com.example.lunch-and-work-countdown
+appId: com.example.work-countdown
+files:
+  - filter:
+      - main.js
+      - countdown.html
+      - css/**/*
+      - js/**/*
+      - images/**/*
+      - build/**/*
 win:
   target:
     - nsis
@@ -20,5 +28,4 @@ mac:
 linux:
   target:
     - AppImage
-files: []
 electronVersion: 22.3.27

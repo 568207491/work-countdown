@@ -33,6 +33,14 @@ $(document).ready(function () {
     },function(){
         $top.addClass('hide');
     });
+    // 窗口操作函数
+    function minimizeWindow() {
+        ipcRenderer.send('minimize-window');
+    }
+
+    function closeWindow() {
+        ipcRenderer.send('close-window');
+    }
     // 监听来自主进程的消息
     ipcRenderer.on('toggle-mini-version', (event, isMini) => {
         if (isMini) {
