@@ -10,7 +10,7 @@
         "lint": "eslint src" 
     },
     "keywords": ["下班倒计时", "助手", "Electron应用"],
-    "author": "Your Name <your.email@example.com>",
+    "author": "YaMu <568207491@example.com>",
     "license": "ISC",
     "devDependencies": {
         "electron": "^22.3.17",

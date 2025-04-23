@@ -170,12 +170,16 @@ if (!gotTheLock) {
             // 发送消息到渲染进程
             mainWindow.webContents.send('toggle-mini-version', isMiniVersion);
         });
+
+        // 监听设置窗口透明度的事件
+        ipcMain.on('set-window-opacity', (event, opacity) => { 
+            mainWindow.setOpacity(opacity);
+        });
     }
 
     function createTrayIfNotExists() {
         if (!tray) {
             const iconPath = path.join(__dirname, '/build/icon.ico'); 
-            console.log('Icon Path:', iconPath); // 添加调试信息
             const trayIcon = nativeImage.createFromPath(iconPath);
             if (trayIcon.isEmpty()) {
                 console.error('Failed to load tray icon:', iconPath);
