@@ -143,14 +143,16 @@ button {
 .dropdown-content .dropdown-item:last-child {
     margin-bottom: 0;
 }
+.select-font span {
+    display: inline-block;
+}
 .change-font {
-    display: block;
+    display: inline-block;
     background: #BA55D3;
     color: #fff;
     border-radius: 2px;
-    padding: 6px 0;
+    padding: 4px 8px;
     border: 0;
-    width: 100%;
     cursor: pointer;
 }
 .change-font:hover {

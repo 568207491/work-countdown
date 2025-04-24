@@ -1,0 +1,110 @@
+<!-- font-selector.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择字体</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .modal {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #font-select-confirm {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        #font-select-confirm:hover {
+            background-color: #218838;
+        }
+
+        #font-select-cancel {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        #font-select-cancel:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal">
+        <h2>选择字体</h2>
+        <select id="fontSelect">
+            <!-- 字体选项将通过 JavaScript 动态添加 -->
+        </select>
+        <div class="button-container">
+            <button id="font-select-confirm">确认</button>
+            <button id="font-select-cancel">取消</button>
+        </div>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        // 监听字体选项数据
+        ipcRenderer.on('font-options', (event, fontOptions) => {
+            const select = document.getElementById('fontSelect');
+            fontOptions.forEach(font => {
+                const option = document.createElement('option');
+                option.value = font;
+                option.textContent = font;
+                select.appendChild(option);
+            });
+        });
+
+        document.getElementById('font-select-confirm').addEventListener('click', () => {
+            const selectedFont = document.getElementById('fontSelect').value;
+            ipcRenderer.send('select-font', selectedFont);
+            window.close();
+        });
+
+        document.getElementById('font-select-cancel').addEventListener('click', () => {
+            window.close();
+        });
+    </script>
+</body>
+
+</html>

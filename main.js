@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog, screen, Tray, nativeImage,BwserWindow } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog, screen, Tray, nativeImage } = require('electron');
 const path = require('path');
 const chokidar = require('chokidar');
 
@@ -35,7 +35,6 @@ if (!gotTheLock) {
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false,
-                enableRemoteModule: true,
             },
             opacity: 1, // 初始透明度为 1
             transparent: true, // 设置窗口透明
@@ -43,10 +42,39 @@ if (!gotTheLock) {
             skipTaskbar: false // 初始时显示在任务栏
         });
 
-        mainWindow.loadFile('countdown.html');
+        
+        mainWindow.loadFile('countdown.html'); 
+
+        // 监听来自渲染进程的创建字体选择器窗口的请求
+        ipcMain.on('open-font-selector', (event, fontOptions) => {
+            const fontWindow = new BrowserWindow({
+                width: 300,
+                height: 250,
+                parent: mainWindow,
+                modal: true,
+                webPreferences: {
+                    nodeIntegration: true,
+                    contextIsolation: false,
+                }
+            });
+
+            fontWindow.loadFile('fontSelector.html');
+            // fontWindow.webContents.openDevTools();
+            // 等待字体选择器窗口加载完成后发送字体选项数据
+            fontWindow.webContents.on('did-finish-load', () => {
+                fontWindow.webContents.send('font-options', fontOptions);
+            });
+            // 监听字体选择器窗口发送的 select-font 事件，并转发到主窗口
+            fontWindow.webContents.on('ipc-message', (event, channel, font) => {
+                if (channel === 'select-font') {
+                    mainWindow.webContents.send('select-font', font);
+                }
+            });
+        });
 
         // 默认打开开发者工具
         mainWindow.webContents.openDevTools();
+        
 
         mainWindow.on('closed', function () {
             mainWindow = null;
@@ -225,4 +253,5 @@ if (!gotTheLock) {
     app.on('window-all-closed', function () {
         if (process.platform !== 'darwin') app.quit();
     });
+
 }

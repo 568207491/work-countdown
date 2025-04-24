@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
-        
+
 $(document).ready(function () {
+
 
     // 窗口操作函数
     function minimizeWindow() {

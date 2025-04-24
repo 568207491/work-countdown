@@ -33,10 +33,10 @@
                     </div>
                     <div class="dropdown-item select-font">
                         <span>选择字体:</span>
-                        <div class="select-font" id="fontSelect"><p>微软雅黑</p></div>
+                        <div class="change-font" id="changeFont"><p>微软雅黑</p></div>
                     </div>
                 </div>
-                <script src="./js/selectFont.js"></script>
+                
             </div>
         </div>
         <div class="window-controls">
@@ -50,29 +50,29 @@
                 <div class="img"><img src="./images/shechu.gif" alt=""></div>
                 <div class="time-tip"><font class="char1" color="#5D5327">起</font><font class="char2" color="#376747">床</font><font class="char3" color="#2BC15C">坐</font><font class="char4" color="#638AD9">牢</font><font class="char" color="#BF1D7E">啦</font></div>
                 <div class="input-container">
-                    <label for="lunch-time">午休开始时间：</label>
+                    <label for="lunch-time comment-font">午休开始时间：</label>
                     <input type="time" id="lunch-time">
-                    <label for="lunch-end-time">午休结束时间：</label>
+                    <label for="lunch-end-time comment-font">午休结束时间：</label>
                     <input type="time" id="lunch-end-time">
                 </div>
                 <div class="input-container">
-                    <label for="work-time">下班时间：</label>
+                    <label for="work-time comment-font">下班时间：</label>
                     <input type="time" id="work-time">
                 </div>
                 <div class="countdown-container" id="lunch-countdown">
                     <div class="progress-bar" id="lunch-progress"></div>
                 </div>
-                <div class="time-display comment-color" id="lunch-left">距离午休剩余时间：--:--:--</div>
-                <div class="time-display comment-color" id="lunch-right">共：--分--秒</div>
+                <div class="time-display comment-color comment-font" id="lunch-left">距离午休剩余时间：--:--:--</div>
+                <div class="time-display comment-color comment-font" id="lunch-right">共：--分--秒</div>
                 <div class="countdown-container" id="work-countdown">
                     <div class="progress-bar" id="work-progress"></div>
                 </div>
             </div>
-            <div class="time-display comment-color" id="work-left">距离下班剩余时间：--:--:--</div>
-            <div class="time-display comment-color" id="work-right">共：--分--秒</div>
+            <div class="time-display comment-color comment-font" id="work-left">距离下班剩余时间：--:--:--</div>
+            <div class="time-display comment-color comment-font" id="work-right">共：--分--秒</div>
         </div>
     </div>
-    
+    <script src="./js/selectFont.js"></script>
 </body>
 
 </html>
