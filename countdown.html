@@ -8,12 +8,14 @@
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_4904145_cpb0ue0rel.css">
     <link rel="stylesheet" href="./css/menu.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>下班倒计时</title>
     <script src="./js/hotCss.js"></script>
     <script src="./js/windows.js"></script>
     <script src="./js/time.js"></script>
+    
 </head>
 
 <body>
@@ -29,8 +31,12 @@
                         <input type="range" id="opacity-picker" min="0" max="100" value="100">
                         <span id="opacity-value">100%</span>
                     </div>
-                    <div class="dropdown-item"><button class="change-font" id="changeFont">换字体</button></div> 
+                    <div class="dropdown-item select-font">
+                        <span>选择字体:</span>
+                        <div class="select-font" id="fontSelect"><p>微软雅黑</p></div>
+                    </div>
                 </div>
+                <script src="./js/selectFont.js"></script>
             </div>
         </div>
         <div class="window-controls">
@@ -66,6 +72,7 @@
             <div class="time-display comment-color" id="work-right">共：--分--秒</div>
         </div>
     </div>
+    
 </body>
 
 </html>

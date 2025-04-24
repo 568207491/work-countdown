@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog, screen, Tray, nativeImage } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog, screen, Tray, nativeImage,BwserWindow } = require('electron');
 const path = require('path');
 const chokidar = require('chokidar');
 
@@ -17,10 +17,17 @@ let IsMini = false; // 是否最小化到托盘
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
-    // 如果没有获取到锁，说明已有实例在运行，不打开新程序
+    // 如果没有获取到锁，说明已有实例在运行，退出当前实例
+    app.quit();
 } else {
     // 当第二个实例启动时触发该事件
-
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // 当尝试运行第二个实例时，将现有的主窗口显示出来
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore();
+            mainWindow.focus();
+        }
+    });
     function createWindow() {
         mainWindow = new BrowserWindow({
             width: 800,
@@ -39,7 +46,7 @@ if (!gotTheLock) {
         mainWindow.loadFile('countdown.html');
 
         // 默认打开开发者工具
-        // mainWindow.webContents.openDevTools();
+        mainWindow.webContents.openDevTools();
 
         mainWindow.on('closed', function () {
             mainWindow = null;
@@ -175,6 +182,8 @@ if (!gotTheLock) {
         ipcMain.on('set-window-opacity', (event, opacity) => { 
             mainWindow.setOpacity(opacity);
         });
+
+        
     }
 
     function createTrayIfNotExists() {
