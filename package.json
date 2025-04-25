@@ -17,10 +17,13 @@
   "author": "YaMu <568207491@example.com>",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^22.3.17",
+    "electron": "22.3.27",
     "electron-builder": "^23.6.0",
     "electron-reload": "^2.0.0-alpha.1",
     "nodemon": "^2.0.20"
+  },
+  "config": {
+    "electron_mirror": "https://npmmirror.com/mirrors/electron/"
   },
   "build": {
     "productName": "下班倒计时助手",
@@ -28,6 +31,7 @@
     "files": [
       "main.js",
       "countdown.html",
+      "fontSelector.html",
       "css/**/*",
       "js/**/*",
       "images/**/*",
@@ -59,8 +63,6 @@
     }
   },
   "dependencies": {
-    "chokidar": "^4.0.3",
-    "electron": "latest",
     "jquery": "^3.7.1"
   }
 }

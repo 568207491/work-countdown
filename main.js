@@ -1,6 +1,5 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog, screen, Tray, nativeImage } = require('electron');
 const path = require('path');
-const chokidar = require('chokidar');
 
 let mainWindow;
 let isWindowAlwaysOnTop = false;
@@ -73,7 +72,7 @@ if (!gotTheLock) {
         });
 
         // 默认打开开发者工具
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
         
 
         mainWindow.on('closed', function () {
