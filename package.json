@@ -32,6 +32,8 @@
       "main.js",
       "countdown.html",
       "fontSelector.html",
+      "data.json",
+      "fonts/**/*",
       "css/**/*",
       "js/**/*",
       "images/**/*",
