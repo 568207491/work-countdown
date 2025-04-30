@@ -1,42 +1,4 @@
 
-@font-face {
-    font-family: "京东朗正体";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://public.mtnets.com/Font/jdlangzhengti/jdlangzhengti.TTF") format("truetype");
-}
-
-@font-face {
-    font-family: "hxbnst";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://public.mtnets.com/Font/hxbnst/hxbnst.eot?#iefix") format("embedded-opentype"),
-        url("https://public.mtnets.com/Font/hxbnst/hxbnst.woff") format("woff"),
-        url("https://public.mtnets.com/Font/hxbnst/hxbnst.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "阿里妈妈东方大楷";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.woff") format("woff"),
-        url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.woff2") format("woff2"),
-        url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "庞门正道体";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://public.mtnets.com/Font/pangmenzhengdao/pangmenzhengdao.TTF") format("truetype");
-}
-
-@font-face {
-    font-family: "阿里妈妈数黑体 Bold";
-    font-weight: 700;
-    src: url("https://public.mtnets.com/Font/AlimamaShuHeiTi-Bold.woff2") format("woff2"),
-        url("https://public.mtnets.com/Font/AlimamaShuHeiTi-Bold.woff") format("woff");
-}
 /* 美化滑动条 */
 #opacity-picker {
     -webkit-appearance: none;
@@ -313,3 +275,46 @@ button {
     background-color: #f0f0f0;
     -webkit-app-region: drag; /* 允许拖动窗口 */
 }
+
+@font-face {
+    font-family: "京东朗正体";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://public.mtnets.com/Font/jdlangzhengti/jdlangzhengti.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "hxbnst";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://public.mtnets.com/Font/hxbnst/hxbnst.eot?#iefix") format("embedded-opentype"),
+        url("https://public.mtnets.com/Font/hxbnst/hxbnst.woff") format("woff"),
+        url("https://public.mtnets.com/Font/hxbnst/hxbnst.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "阿里妈妈东方大楷";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.woff") format("woff"),
+        url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.woff2") format("woff2"),
+        url("https://public.mtnets.com/Font/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "庞门正道体";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://public.mtnets.com/Font/pangmenzhengdao/pangmenzhengdao.TTF") format("truetype");
+}
+
+@font-face {
+    font-family: "阿里妈妈数黑体 Bold";
+    font-weight: 700;
+    src: url("https://public.mtnets.com/Font/AlimamaShuHeiTi-Bold.woff2") format("woff2"),
+        url("https://public.mtnets.com/Font/AlimamaShuHeiTi-Bold.woff") format("woff");
+}
+
+
+
+

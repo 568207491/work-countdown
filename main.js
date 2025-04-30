@@ -47,14 +47,15 @@ if (!gotTheLock) {
         // 监听来自渲染进程的创建字体选择器窗口的请求
         ipcMain.on('open-font-selector', (event, fontOptions) => {
             const fontWindow = new BrowserWindow({
-                width: 300,
-                height: 250,
                 parent: mainWindow,
                 modal: true,
                 webPreferences: {
                     nodeIntegration: true,
                     contextIsolation: false,
-                }
+                },
+                transparent: true, // 设置窗口透明
+                frame: false, // 移除默认窗口框架
+                show: false // 先不显示窗口
             });
 
             fontWindow.loadFile('fontSelector.html');
@@ -62,6 +63,68 @@ if (!gotTheLock) {
             // 等待字体选择器窗口加载完成后发送字体选项数据
             fontWindow.webContents.on('did-finish-load', () => {
                 fontWindow.webContents.send('font-options', fontOptions);
+                // 使用 MutationObserver 监听 modal 元素的变化
+                fontWindow.webContents.executeJavaScript(`
+                    new Promise((resolve) => {
+                        const modal = document.getElementById('modal');
+                        if (modal && modal.offsetWidth > 0 && modal.offsetHeight > 0) {
+                            const width = modal.offsetWidth;
+                            const height = modal.offsetHeight;
+                            resolve([width, height]);
+                        }else {
+                            const observer = new MutationObserver((mutationsList) => {
+                                const modal = document.getElementById('modal');
+                                if (modal && modal.offsetWidth > 0 && modal.offsetHeight > 0) {
+                                    const width = modal.offsetWidth;
+                                    const height = modal.offsetHeight;
+                                    observer.disconnect();
+                                    resolve([width, height]);
+                                }
+                            });
+
+                            const targetNode = document.body;
+                            const config = { childList: true, subtree: true };
+                            observer.observe(targetNode, config);
+
+                            // 为了避免无限等待，设置一个超时时间
+                            setTimeout(() => {
+                                observer.disconnect();
+                                const modal = document.getElementById('modal');
+                                if (modal) {
+                                    const width = modal.offsetWidth;
+                                    const height = modal.offsetHeight;
+                                    resolve([width, height]);
+                                } else {
+                                    console.error('Modal element not found.');
+                                    resolve([0, 0]);
+                                }
+                            }, 2000); 
+                        }
+                    });
+                `).then((result) => {
+                    if (Array.isArray(result) && result.length === 2) {
+                        const [width, height] = result;
+                        if (width > 0 && height > 0) {
+                            // 设置窗口大小为 modal 元素的大小
+                            fontWindow.setSize(width, height);
+                            // 获取屏幕尺寸
+                            const { screen } = require('electron');
+                            const primaryDisplay = screen.getPrimaryDisplay();
+                            const { width: screenWidth, height: screenHeight } = primaryDisplay.workAreaSize;
+                            // 计算窗口居中时的位置
+                            const x = Math.round((screenWidth - width) / 2);
+                            const y = Math.round((screenHeight - height) / 2);
+                            // 设置窗口位置
+                            fontWindow.setPosition(x, y);
+                        }
+                    } else {
+                        console.error('Invalid result from executeJavaScript:', result);
+                    }
+                    // 显示窗口
+                    fontWindow.show();
+                }).catch((error) => {
+                    console.error('Error getting modal size:', error);
+                });
             });
             // 监听字体选择器窗口发送的 select-font 事件，并转发到主窗口
             fontWindow.webContents.on('ipc-message', (event, channel, font) => {

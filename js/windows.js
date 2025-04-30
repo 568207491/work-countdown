@@ -89,7 +89,7 @@ $(document).ready(function () {
     }); 
 
     // 关闭顶部二级菜单
-    function closeChildMenu(){
+    window.closeChildMenu = function(){
         openChildMenu = false;
         $('.dropdown-content').slideUp();
         $top.addClass('hide');
@@ -100,13 +100,13 @@ $(document).ready(function () {
         const opacityPercent = $(this).val();
         $opacityValue.text(opacityPercent + '%');
         ipcRenderer.send('set-window-opacity', opacity);
-        closeChildMenu();
+        window.closeChildMenu()
     });
   
     $('#color-picker').on('change', function () {
         var selectedColor = $(this).val();
         $('.comment-color').css('color', selectedColor);
-        closeChildMenu();
+        window.closeChildMenu()
     });
     
 });
