@@ -38,7 +38,7 @@ window.showFontSelector = function (font) {
 $('#changeFont').on('click', function () {
     showFontSelector(nowFont);
 });
- 
+  
 // 监听选择字体的事件
 ipcRenderer.on('select-font', (event, selectedFontName) => {
     // 找到所选字体的路径
