@@ -15,6 +15,40 @@ let IsMini = false; // 是否最小化到托盘
 // 请求单实例锁
 const gotTheLock = app.requestSingleInstanceLock();
 
+
+let Store;
+(async () => {
+    Store = (await import('electron-store')).default;
+    const store = new Store();
+    
+    // 监听保存字体的消息
+    ipcMain.on('save-selected-font', (event, fontName) => {
+        store.set('selectedFont', fontName); 
+        // console.log('已存储字体:', fontName); // 添加日志
+        // console.log('所有存储的数据:', store.store); // 打印所有数据
+    });
+ 
+    // 监听获取字体的消息 
+    ipcMain.on('get-selected-font', (event) => {
+        const selectedFont = store.get('selectedFont'); 
+        // console.log('获取字体请求 - 当前存储的字体:', selectedFont); // 添加日志
+        event.sender.send('selected-font-response', selectedFont);
+    }); 
+
+    // 监听保存颜色的消息
+    ipcMain.on('save-selected-color', (event, Color) => {
+        store.set('selectedColor', Color);
+        // console.log('已存储颜色:', Color); // 添加日志
+        // console.log('所有存储的数据:', store.store); // 打印所有数据
+    });
+    // 监听获取颜色的消息 
+    ipcMain.on('get-selected-color', (event) => {
+        const selectedColor = store.get('selectedColor'); 
+        // console.log('获取颜色请求 - 当前存储的颜色:', selectedColor); // 添加日志
+        event.sender.send('selected-color-response', selectedColor);
+    });
+})();
+
 if (!gotTheLock) {
     // 如果没有获取到锁，说明已有实例在运行，退出当前实例
     app.quit();
@@ -42,7 +76,7 @@ if (!gotTheLock) {
         });
 
         
-        mainWindow.loadFile('countdown.html'); 
+        mainWindow.loadFile('countdown.html');  
 
         // 监听来自渲染进程的创建字体选择器窗口的请求
         ipcMain.on('open-font-selector', (event, fontOptions) => {

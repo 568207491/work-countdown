@@ -105,8 +105,15 @@ $(document).ready(function () {
   
     $('#color-picker').on('change', function () {
         var selectedColor = $(this).val();
+        // 保存颜色到主进程
+        ipcRenderer.send('save-selected-color', selectedColor);
         $('.comment-color').css('color', selectedColor);
         window.closeChildMenu()
     });
     
+    // 页面加载时获取存储的颜色
+    ipcRenderer.send('get-selected-color');
+    ipcRenderer.on('selected-color-response', (event, selectedColor) => {
+        $('.comment-color').css('color', selectedColor);
+    });
 });
