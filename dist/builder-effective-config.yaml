@@ -1,6 +1,7 @@
 directories:
   output: dist
   buildResources: build
+asar: false
 productName: 下班倒计时助手
 appId: com.example.work-countdown
 files:

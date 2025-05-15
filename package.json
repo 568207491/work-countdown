@@ -26,8 +26,12 @@
     "electron_mirror": "https://npmmirror.com/mirrors/electron/"
   },
   "build": {
+    "asar": false,
     "productName": "下班倒计时助手",
     "appId": "com.example.work-countdown",
+    "directories": {
+      "output": "dist"
+    },
     "files": [
       "main.js",
       "countdown.html",
