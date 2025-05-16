@@ -19,11 +19,17 @@ $(document).ready(function () {
         ipcRenderer.send('toggle-mini-version');
     }
 
+    function toggleLock() {
+        ipcRenderer.send('toggle-lock');
+        window.closeChildMenu()
+    }
+
     // 将函数暴露到全局作用域
     window.minimizeWindow = minimizeWindow;
     window.closeWindow = closeWindow;
     window.toggleWindowTop = toggleWindowTop;
     window.toggleMiniVersion = toggleMiniVersion;
+    window.toggleLock = toggleLock;
 
     const $part = $('body');
     const $top = $('.custom-header');

@@ -4,6 +4,7 @@ const path = require('path');
 let mainWindow;
 let isWindowAlwaysOnTop = false;
 let isMiniVersion = false;
+let isLocked = false;
 // 保存初始窗口大小
 let initialWidth;
 let initialHeight;
@@ -302,6 +303,14 @@ if (!gotTheLock) {
             mainWindow.webContents.send('toggle-mini-version', isMiniVersion);
         });
 
+        ipcMain.on('toggle-lock', () => {
+            isLocked = !isLocked;
+            setWindowLocked(isLocked);
+            updateTrayMenu();
+            // 发送消息到渲染进程
+            mainWindow.webContents.send('toggle-lock', isLocked);
+        });
+
         // 监听设置窗口透明度的事件
         ipcMain.on('set-window-opacity', (event, opacity) => { 
             mainWindow.setOpacity(opacity);
@@ -309,32 +318,58 @@ if (!gotTheLock) {
 
         
     }
-
+    // 创建系统托盘
     function createTrayIfNotExists() {
         if (!tray) {
             const iconPath = path.join(__dirname, '/build/icon.ico'); 
             const trayIcon = nativeImage.createFromPath(iconPath);
-            if (trayIcon.isEmpty()) {
-                console.error('Failed to load tray icon:', iconPath);
-            }
             tray = new Tray(trayIcon);
-            const contextMenu = Menu.buildFromTemplate([
-                { label: '显示窗口', click: () => {
-                    mainWindow.show();
-                    if (!isMiniVersion) {
-                        mainWindow.setSkipTaskbar(false); // 显示任务栏图标
-                    }
-                } },
-                { label: '退出程序', click: () => app.quit() }
-            ]);
-            tray.setToolTip('下班倒计时助手');
-            tray.setContextMenu(contextMenu);
+
+            // 更新托盘菜单
+            updateTrayMenu();
             tray.on('click', () => { 
                 mainWindow.show();
                 if (!isMiniVersion) {
                     mainWindow.setSkipTaskbar(false); // 显示任务栏图标
                 }
             });
+        }
+    }
+    // 更新托盘菜单函数
+    function updateTrayMenu() {
+        const contextMenu = Menu.buildFromTemplate([
+            { label: '显示窗口', click: () => {
+                mainWindow.show();
+                if (!isMiniVersion) {
+                    mainWindow.setSkipTaskbar(false);
+                }
+            } },
+            { 
+                label: isLocked ? '解锁窗口' : '锁定窗口', 
+                click: () => {
+                    isLocked = !isLocked;
+                    setWindowLocked(isLocked);
+                    updateTrayMenu(); // 更新菜单显示
+                }
+            },
+            { label: '退出程序', click: () => app.quit() }
+        ]);
+        
+        tray.setContextMenu(contextMenu); 
+    }
+
+    // 锁定事件
+    function setWindowLocked(locked) {
+        if (locked) {
+            // 设置窗口始终置顶，但不捕获鼠标事件
+            mainWindow.setAlwaysOnTop(true, 'screen-saver');
+            mainWindow.setIgnoreMouseEvents(true);
+            mainWindow.setSkipTaskbar(true); // 隐藏任务栏图标
+        } else {
+            // 恢复窗口的正常状态
+            mainWindow.setAlwaysOnTop(false);
+            mainWindow.setIgnoreMouseEvents(false);
+            mainWindow.setSkipTaskbar(false); // 显示任务栏图标
         }
     }
 

@@ -241,8 +241,23 @@ button {
     display: none;
     margin-right: 4px;
 }
+.left-menu .menu-item .fa-unlock {
+    display: none;
+}
 .left-menu .menu-item.focus i {
     display: inline;
+}
+.left-menu .menu-item.focus .fa-unlock {
+    display: inline;
+}
+.left-menu .menu-item.focus .fa-lock {
+    display: none;
+}
+#lockBtn {
+    display: none;
+}
+.mini #lockBtn {
+    display: inline-block;
 }
 .window-button {
     width: 20px;
